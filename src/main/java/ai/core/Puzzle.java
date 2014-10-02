@@ -3,15 +3,23 @@ package ai.core;
 public class Puzzle {
     
     private char[] layout;
-    private int heuristic;
     private int solutionCost;
-    private int expandedNode;
+    private int expanded;
     private int executionTime;
     
+    /**
+     * Goal state
+     */
+    public static final char[] GOAL_STATE = { '1', '2', '3', '4', '5', '6', '7', '8', '*' };
+
     public Puzzle(char[] layout) {
         this.layout = layout;
     }
     
+    public char[] getLayout() {
+        return this.layout;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
