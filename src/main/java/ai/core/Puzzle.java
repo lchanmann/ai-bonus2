@@ -1,6 +1,7 @@
 package ai.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -23,8 +24,9 @@ public class Puzzle {
     public Puzzle(char[] layout) {
         this.layout = layout;
     }
-    
-    public static Action[] getActions(char[] state) {
+
+    // NOTE: can be static
+    public Action[] getActions(char[] state) {
         List<Action> actions = new ArrayList<Action>(Action.ALL);
         int boardSize = (int) Math.sqrt(state.length);
 
@@ -43,6 +45,29 @@ public class Puzzle {
         return actions.toArray(new Action[0]);
     }
 
+ // NOTE: can be static
+    public char[] getResult(char[] state, Action action) {
+        for (int i=0; i<state.length; i++) {
+            if (state[i] == Puzzle.BLANK) {
+                char[] result = new char[state.length];
+                int boardSize = (int) Math.sqrt(state.length);
+                int iNew = i;
+
+                if (action == Action.Left) iNew += 1;
+                else if (action == Action.Right) iNew -= 1;
+                else if (action == Action.Up) iNew += boardSize;
+                else if (action == Action.Down) iNew -= boardSize;
+                for (int j=0; j<state.length; j++) {
+                    if (j == i) result[j] = state[iNew];
+                    else if (j == iNew) result[j] = state[i];
+                    else result[j] = state[j];
+                }
+                return result;
+            }
+        }
+        return state;
+    }
+
     public char[] getLayout() {
         return this.layout;
     }
@@ -54,11 +79,6 @@ public class Puzzle {
             }
         }
         return true;
-    }
-
-    public char[] getResult(char[] state, Action action) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

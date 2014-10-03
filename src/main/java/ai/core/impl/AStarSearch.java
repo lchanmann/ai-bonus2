@@ -31,7 +31,7 @@ public class AStarSearch {
         for (int i=0; i<Integer.MAX_VALUE; i++) {
             if (frontier.isEmpty()) return -1; // Failure
             if (puzzle.goalTest(node.getState())) return i; // Found solution
-            for (Action action : Puzzle.getActions(node.getState())) {
+            for (Action action : puzzle.getActions(node.getState())) {
                 Node childNode = createNode(puzzle, node, action);
                 boolean isInFrontier = frontier.indexOf(childNode) != -1;
                 boolean isInExplored = explored.indexOf(childNode) != -1;
