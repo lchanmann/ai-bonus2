@@ -1,8 +1,5 @@
 package ai.apps;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ai.core.Puzzle;
 import ai.core.impl.AStarSearch;
 import ai.core.impl.ManhattanDistance;
@@ -14,15 +11,18 @@ public class Application {
      * The total number of puzzles
      */
     private static final int totalPuzzles = 50;
-    
+
     /**
      * The puzzle list
      */
-    private List<Puzzle> puzzles;
+    private Puzzle[] puzzles = new Puzzle[totalPuzzles];
+    
+    private int[] aStarSolutionCosts = new int[totalPuzzles];
     
     public void start() {
         createPuzzles();
         performAStarSearch();
+        System.out.println(aStarSolutionCosts[0]);
     }
 
     public static void main(String[] args) {
@@ -35,17 +35,16 @@ public class Application {
      */
     private void performAStarSearch() {
         AStarSearch search = new AStarSearch(new ManhattanDistance(Puzzle.GOAL_STATE));
-        for (Puzzle puzzle : puzzles) {
-            search.solve(puzzle);
+        for (int i=0; i<puzzles.length; i++) {
+            aStarSolutionCosts[i] = search.solve(puzzles[i]);
         }
     }
 
     private void createPuzzles() {
-        puzzles = new ArrayList<Puzzle>(totalPuzzles);
         PuzzleFactory factory = new PuzzleFactory();
         
         for (int i=0; i<totalPuzzles; i++) {
-            puzzles.add(factory.create());
+            puzzles[i] = factory.create();
         }
     }
 }
