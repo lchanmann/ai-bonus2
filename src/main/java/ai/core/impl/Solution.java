@@ -1,8 +1,8 @@
 package ai.core.impl;
 
-import ai.core.Result;
+import ai.core.SearchResult;
 
-public class Solution implements Result{
+public class Solution extends SearchResult{
 
     private int cost;
     private int expanded;

@@ -7,7 +7,7 @@ import ai.core.Action;
 import ai.core.Heuristic;
 import ai.core.Node;
 import ai.core.Puzzle;
-import ai.core.Result;
+import ai.core.SearchResult;
 
 public class AStarSearch {
 
@@ -22,7 +22,7 @@ public class AStarSearch {
      * @param puzzle
      * @return Solution cost for the puzzle
      */
-    public Result solve(Puzzle puzzle) {
+    public SearchResult solve(Puzzle puzzle) {
         Node node = new Node(puzzle.getLayout());
         // TODO: set a reasonable capacity
         List<Node> frontier = new ArrayList<Node>();
@@ -32,7 +32,7 @@ public class AStarSearch {
         solving(puzzle);
         frontier.add(node);
         for (int i=0; i<Short.MAX_VALUE; i++) {
-            if (frontier.isEmpty()) return new Failure("Failure: no solution found.");
+            if (frontier.isEmpty()) return new Failure("No solution found");
             if (puzzle.goalTest(node.getState()))
                 return new Solution(node.getPathCost(), explored.size(), System.nanoTime() - startTime);
 
@@ -48,7 +48,7 @@ public class AStarSearch {
             }
             explored.add(frontier.remove(frontier.indexOf(node)));
         }
-        return new Failure("Failure: too many state spaces.");
+        return new Failure("Too many state spaces");
     }
 
     private void solving(Puzzle puzzle) {

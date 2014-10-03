@@ -20,6 +20,10 @@ public class Node {
     public char[] getState() {
         return state;
     }
+
+    public Node getParent() {
+        return parent;
+    }
     
     public int getPathCost() {
         return pathCost;

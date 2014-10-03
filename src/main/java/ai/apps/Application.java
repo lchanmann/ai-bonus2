@@ -1,7 +1,7 @@
 package ai.apps;
 
 import ai.core.Puzzle;
-import ai.core.Result;
+import ai.core.SearchResult;
 import ai.core.impl.AStarSearch;
 import ai.core.impl.ManhattanDistance;
 import ai.util.PuzzleFactory;
@@ -18,7 +18,7 @@ public class Application {
      */
     private Puzzle[] puzzles = new Puzzle[totalPuzzles];
     
-    private Result[] aStarSearchResults = new Result[totalPuzzles];
+    private SearchResult[] aStarSearchResults = new SearchResult[totalPuzzles];
     
     public void start() {
         createPuzzles();
