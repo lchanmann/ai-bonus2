@@ -31,6 +31,8 @@ public class AStarSearch {
         for (int i=0; i<Integer.MAX_VALUE; i++) {
             if (frontier.isEmpty()) return -1; // Failure
             if (puzzle.goalTest(node.getState())) return i; // Found solution
+
+            node = getBestNode(frontier);
             for (Action action : puzzle.getActions(node.getState())) {
                 Node childNode = createNode(puzzle, node, action);
                 boolean isInFrontier = frontier.indexOf(childNode) != -1;
@@ -51,6 +53,22 @@ public class AStarSearch {
 //        System.out.print(sb.toString());
 
         return Integer.MAX_VALUE;
+    }
+
+    private Node getBestNode(List<Node> frontier) {
+        int bestIndex = 0;
+        int bestCost = Integer.MAX_VALUE;
+
+        for (int i=0; i<frontier.size(); i++) {
+            Node node = frontier.get(i);
+            int costEstimate = node.getPathCost() + heuristic.evaluate(node.getState());
+
+            if (bestCost > costEstimate) {
+                bestIndex = i;
+                bestCost = costEstimate;
+            }
+        }
+        return frontier.get(bestIndex);
     }
 
     private Node createNode(Puzzle puzzle, Node node, Action action) {

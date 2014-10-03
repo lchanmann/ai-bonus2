@@ -14,6 +14,7 @@ public class Node {
     public Node(char[] state, Node parent) {
         this.state = state;
         this.parent = parent;
+        this.pathCost = parent == null ? 0 : parent.pathCost + 1;
     }
 
     public char[] getState() {
