@@ -7,6 +7,7 @@ import ai.core.Action;
 import ai.core.Heuristic;
 import ai.core.Node;
 import ai.core.Puzzle;
+import ai.core.Result;
 
 public class AStarSearch {
 
@@ -21,16 +22,17 @@ public class AStarSearch {
      * @param puzzle
      * @return Solution cost for the puzzle
      */
-    public int solve(Puzzle puzzle) {
+    public Result solve(Puzzle puzzle) {
         Node node = new Node(puzzle.getLayout());
         // TODO: set a reasonable capacity
         List<Node> frontier = new ArrayList<Node>();
         List<Node> explored = new ArrayList<Node>();
 
+        solving(puzzle);
         frontier.add(node);
         for (int i=0; i<Integer.MAX_VALUE; i++) {
-            if (frontier.isEmpty()) return -1; // Failure
-            if (puzzle.goalTest(node.getState())) return i; // Found solution
+            if (frontier.isEmpty()) return new Failure("Failure: no solution found.");
+            if (puzzle.goalTest(node.getState())) return new Solution(i, explored.size());
 
             node = getBestNode(frontier);
             for (Action action : puzzle.getActions(node.getState())) {
@@ -44,16 +46,18 @@ public class AStarSearch {
             }
             explored.add(frontier.remove(frontier.indexOf(node)));
         }
+        return new Failure("Failure: too many state spaces.");
+    }
 
-//        StringBuilder sb = new StringBuilder();
-//
-//        sb.append(puzzle.toString())
-//          .append("h = ")
-//          .append(heuristic.evaluate(puzzle.getLayout()))
-//          .append("\n\n");
-//        System.out.print(sb.toString());
+    private void solving(Puzzle puzzle) {
+        StringBuilder sb = new StringBuilder();
 
-        return Integer.MAX_VALUE;
+        sb.append("Start solving: ")
+          .append("\n")
+          .append(puzzle.toString())
+          .append("h = ")
+          .append(heuristic.evaluate(puzzle.getLayout()));
+        System.out.println(sb.toString());
     }
 
     private Node getBestNode(List<Node> frontier) {

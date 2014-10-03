@@ -25,6 +25,7 @@ public class Node {
         return pathCost;
     }
 
+    @Override
     public boolean equals(Object obj) {
         Node other = (Node) obj;
         char[] otherState = other.getState();

@@ -1,6 +1,7 @@
 package ai.apps;
 
 import ai.core.Puzzle;
+import ai.core.Result;
 import ai.core.impl.AStarSearch;
 import ai.core.impl.ManhattanDistance;
 import ai.util.PuzzleFactory;
@@ -17,12 +18,11 @@ public class Application {
      */
     private Puzzle[] puzzles = new Puzzle[totalPuzzles];
     
-    private int[] aStarSolutionCosts = new int[totalPuzzles];
+    private Result[] aStarSearchResults = new Result[totalPuzzles];
     
     public void start() {
         createPuzzles();
         performAStarSearch();
-        System.out.println(aStarSolutionCosts[0]);
     }
 
     public static void main(String[] args) {
@@ -36,7 +36,8 @@ public class Application {
     private void performAStarSearch() {
         AStarSearch search = new AStarSearch(new ManhattanDistance(Puzzle.GOAL_STATE));
         for (int i=0; i<puzzles.length; i++) {
-            aStarSolutionCosts[i] = search.solve(puzzles[i]);
+            aStarSearchResults[i] = search.solve(puzzles[i]);
+            System.out.println(aStarSearchResults[i] + "\n");
         }
     }
 
