@@ -27,12 +27,14 @@ public class AStarSearch {
         // TODO: set a reasonable capacity
         List<Node> frontier = new ArrayList<Node>();
         List<Node> explored = new ArrayList<Node>();
+        Long startTime = System.nanoTime();
 
         solving(puzzle);
         frontier.add(node);
-        for (int i=0; i<Integer.MAX_VALUE; i++) {
+        for (int i=0; i<Short.MAX_VALUE; i++) {
             if (frontier.isEmpty()) return new Failure("Failure: no solution found.");
-            if (puzzle.goalTest(node.getState())) return new Solution(node.getPathCost(), explored.size());
+            if (puzzle.goalTest(node.getState()))
+                return new Solution(node.getPathCost(), explored.size(), System.nanoTime() - startTime);
 
             node = getBestNode(frontier);
             for (Action action : puzzle.getActions(node.getState())) {

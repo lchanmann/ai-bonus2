@@ -6,10 +6,16 @@ public class Solution implements Result{
 
     private int cost;
     private int expanded;
+    private long executionTime;
 
-    public Solution(int cost, int expanded) {
+    public Solution(int cost, int expanded, long executionTime) {
         this.cost = cost;
         this.expanded = expanded;
+        this.executionTime = executionTime;
+    }
+
+    private double getExecutionTimeInSecond() {
+        return executionTime / Math.pow(10, 6);
     }
 
     @Override
@@ -19,7 +25,9 @@ public class Solution implements Result{
         sb.append("[ Solution cost: ")
           .append(cost).append(", ")
           .append("Expanded nodes: ")
-          .append(expanded).append(" ]");
+          .append(expanded).append(", ")
+          .append("Execution time: ")
+          .append(getExecutionTimeInSecond()).append("(s) ]");
         return sb.toString();
     }
 }

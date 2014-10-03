@@ -37,7 +37,7 @@ public class Application {
         AStarSearch search = new AStarSearch(new ManhattanDistance(Puzzle.GOAL_STATE));
         for (int i=0; i<puzzles.length; i++) {
             aStarSearchResults[i] = search.solve(puzzles[i]);
-            System.out.println(aStarSearchResults[i] + "\n");
+            System.out.println("A* = " + aStarSearchResults[i] + "\n");
         }
     }
 

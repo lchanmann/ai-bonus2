@@ -7,8 +7,6 @@ import java.util.List;
 public class Puzzle {
     
     private char[] layout;
-    private int expanded;
-    private int executionTime;
 
     /**
      * Goal state
