@@ -32,7 +32,7 @@ public class AStarSearch {
         frontier.add(node);
         for (int i=0; i<Integer.MAX_VALUE; i++) {
             if (frontier.isEmpty()) return new Failure("Failure: no solution found.");
-            if (puzzle.goalTest(node.getState())) return new Solution(i, explored.size());
+            if (puzzle.goalTest(node.getState())) return new Solution(node.getPathCost(), explored.size());
 
             node = getBestNode(frontier);
             for (Action action : puzzle.getActions(node.getState())) {
