@@ -1,8 +1,5 @@
 package ai.apps;
 
-import java.util.Arrays;
-
-import ai.core.Action;
 import ai.core.Puzzle;
 import ai.core.impl.AStarSearch;
 import ai.core.impl.ManhattanDistance;

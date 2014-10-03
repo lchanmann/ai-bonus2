@@ -24,4 +24,28 @@ public class Node {
     public int getPathCost() {
         return pathCost;
     }
+
+    public boolean equals(Object obj) {
+        Node other = (Node) obj;
+        char[] otherState = other.getState();
+
+        for (int i=0; i<state.length; i++) {
+            if (state[i] != otherState[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+
+        for (int i=0; i<state.length; i++) {
+            if (state[i] != Puzzle.BLANK) {
+                result += Integer.valueOf(state[i]) * Math.pow(10, i);
+            }
+        }
+        return result;
+    }
 }

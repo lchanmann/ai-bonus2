@@ -42,6 +42,7 @@ public class AStarSearch {
                     frontier.add(childNode);
                 }
             }
+            explored.add(frontier.remove(frontier.indexOf(node)));
         }
 
 //        StringBuilder sb = new StringBuilder();
