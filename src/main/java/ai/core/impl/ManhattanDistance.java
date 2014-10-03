@@ -1,26 +1,30 @@
 package ai.core.impl;
 
 import ai.core.Heuristic;
+import ai.core.Puzzle;
 
 public class ManhattanDistance implements Heuristic {
 
     private char[] goalState;
-    private static final char BLANK = '*';
 
     public ManhattanDistance(char[] goalState) {
         this.goalState = goalState;
     }
 
+    public char[] getGoalState() {
+        return goalState;
+    }
+
     public int evaluate(char[] state) {
         int totalDistance = 0;
-        int stateSize = (int) Math.sqrt(goalState.length);
+        int boardSize = (int) Math.sqrt(goalState.length);
 
         for (int i=0; i<state.length; i++) {
-            if (state[i] != BLANK) {
+            if (state[i] != Puzzle.BLANK) {
                 for (int j=0; j<goalState.length; j++) {
                     if (state[i] == goalState[j]) {
-                        int horizontalDistance = Math.abs(i % stateSize - j % stateSize);
-                        int verticalDistance = Math.abs(i / stateSize - j / stateSize);
+                        int horizontalDistance = Math.abs(i % boardSize - j % boardSize);
+                        int verticalDistance = Math.abs(i / boardSize - j / boardSize);
 
                         totalDistance += horizontalDistance + verticalDistance;
                     }

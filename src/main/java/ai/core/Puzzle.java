@@ -1,23 +1,64 @@
 package ai.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Puzzle {
     
     private char[] layout;
-    private int solutionCost;
     private int expanded;
     private int executionTime;
-    
+
     /**
      * Goal state
      */
     public static final char[] GOAL_STATE = { '1', '2', '3', '4', '5', '6', '7', '8', '*' };
 
+    /**
+     * Blank character
+     */
+    public static final char BLANK = '*';
+
     public Puzzle(char[] layout) {
         this.layout = layout;
     }
     
+    public static Action[] getActions(char[] state) {
+        List<Action> actions = new ArrayList<Action>(Action.ALL);
+        int boardSize = (int) Math.sqrt(state.length);
+
+        for (int i=0; i<state.length; i++) {
+            if (state[i] == BLANK) {
+                int row = i / boardSize + 1;
+                int column = i % boardSize + 1;
+
+                if (row == 1) actions.remove(Action.Down);
+                if (row == boardSize) actions.remove(Action.Up);
+                if (column == 1) actions.remove(Action.Right);
+                if (column == boardSize) actions.remove(Action.Left);
+                break;
+            }
+        }
+        return actions.toArray(new Action[0]);
+    }
+
     public char[] getLayout() {
         return this.layout;
+    }
+
+    public boolean goalTest(char[] state) {
+        for (int i=0; i<GOAL_STATE.length; i++) {
+            if (GOAL_STATE[i] != state[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public char[] getResult(char[] state, Action action) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
