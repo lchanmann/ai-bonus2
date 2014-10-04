@@ -1,10 +1,15 @@
 package ai.core.search;
 
+import ai.core.Node;
+import ai.core.Puzzle;
 
-public class Solution extends SearchResult{
+public class LocalOptima extends SearchResult {
 
-    public Solution(int cost, int expanded, long executionTime) {
-        this.cost = cost;
+    private Node node;
+
+    public LocalOptima(Node node, int expanded, long executionTime) {
+        this.node = node;
+        this.cost = node.getPathCost();
         this.expanded = expanded;
         this.executionTime = executionTime;
     }
@@ -18,7 +23,9 @@ public class Solution extends SearchResult{
           .append("Expanded nodes: ")
           .append(expanded).append(", ")
           .append("Execution time: ")
-          .append(getExecutionTimeInSecond()).append("(s) ]");
+          .append(getExecutionTimeInSecond()).append("(s) ]")
+          .append("\n")
+          .append(new Puzzle(node.getState()).toString());
         return sb.toString();
     }
 }
