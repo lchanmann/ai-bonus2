@@ -29,12 +29,14 @@ public class HillClimbingSearch {
 
         solving(puzzle);
         while (true) {
-            List<Node> children = expandNode(current, puzzle);
+            if (puzzle.goalTest(current.getState()))
+                return new Solution(current.getPathCost(), expanded, System.nanoTime() - startTime);
 
+            List<Node> children = expandNode(current, puzzle);
             expanded++;
             neighbor = getBestNode(children);
             if (getValue(neighbor) <= getValue(current))
-                return new LocalOptima(current, expanded, System.nanoTime() - startTime);
+                return new LocalMaxima(current, expanded, System.nanoTime() - startTime);
             current = neighbor;
         }
     }
@@ -55,7 +57,7 @@ public class HillClimbingSearch {
 
         for (Node node : nodes) {
             if (bestNode == null) bestNode = node;
-            else if (getValue(bestNode) < getValue(node)) {
+            else if (getValue(bestNode) <= getValue(node)) {
                 bestNode = node;
             }
         }

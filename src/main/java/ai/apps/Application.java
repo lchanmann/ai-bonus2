@@ -26,6 +26,7 @@ public class Application {
         createPuzzles();
 //        performAStarSearch();
         performHillClimbingSearch();
+//        Puzzle puzzle = new Puzzle(new char[] {'8','6','4','5','7','*','3','2','1'});
     }
 
     public static void main(String[] args) {
