@@ -17,7 +17,7 @@ public class AStarSearch {
     }
 
     /**
-     * Solve a given puzzle
+     * Solve a given puzzle using A* algorithm
      * @param puzzle
      * @return Solution cost for the puzzle
      */
