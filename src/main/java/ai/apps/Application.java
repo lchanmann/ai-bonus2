@@ -2,8 +2,8 @@ package ai.apps;
 
 import ai.core.Puzzle;
 import ai.core.SearchResult;
+import ai.core.heuristic.ManhattanDistance;
 import ai.core.impl.AStarSearch;
-import ai.core.impl.ManhattanDistance;
 import ai.util.PuzzleFactory;
 
 public class Application {
@@ -37,7 +37,7 @@ public class Application {
         AStarSearch search = new AStarSearch(new ManhattanDistance(Puzzle.GOAL_STATE));
         for (int i=0; i<puzzles.length; i++) {
             aStarSearchResults[i] = search.solve(puzzles[i]);
-            System.out.println("A* = " + aStarSearchResults[i] + "\n");
+            System.out.println("A* (Manhattan) = " + aStarSearchResults[i] + "\n");
         }
     }
 

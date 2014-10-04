@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ai.core.Action;
-import ai.core.Heuristic;
 import ai.core.Node;
 import ai.core.Puzzle;
 import ai.core.SearchResult;
+import ai.core.heuristic.Heuristic;
 
 public class AStarSearch {
 

@@ -1,20 +1,14 @@
-package ai.core.impl;
+package ai.core.heuristic;
 
-import ai.core.Heuristic;
 import ai.core.Puzzle;
 
-public class ManhattanDistance implements Heuristic {
-
-    private char[] goalState;
+public class ManhattanDistance extends Heuristic {
 
     public ManhattanDistance(char[] goalState) {
-        this.goalState = goalState;
+        super(goalState);
     }
 
-    public char[] getGoalState() {
-        return goalState;
-    }
-
+    @Override
     public int evaluate(char[] state) {
         int totalDistance = 0;
         int boardSize = (int) Math.sqrt(goalState.length);

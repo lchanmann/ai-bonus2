@@ -4,7 +4,7 @@ public class Node {
     
     private char[] state;
     private Node parent;
-    private Action action;
+//    private Action action;
     private int pathCost;
     
     public Node(char[] state) {
