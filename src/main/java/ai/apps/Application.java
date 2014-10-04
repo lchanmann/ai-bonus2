@@ -1,9 +1,9 @@
 package ai.apps;
 
 import ai.core.Puzzle;
-import ai.core.SearchResult;
 import ai.core.heuristic.ManhattanDistance;
-import ai.core.impl.AStarSearch;
+import ai.core.search.AStarSearch;
+import ai.core.search.SearchResult;
 import ai.util.PuzzleFactory;
 
 public class Application {

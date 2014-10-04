@@ -1,6 +1,5 @@
-package ai.core.impl;
+package ai.core.search;
 
-import ai.core.SearchResult;
 
 public class Failure extends SearchResult {
 
