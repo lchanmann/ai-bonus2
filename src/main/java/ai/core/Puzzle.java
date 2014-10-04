@@ -5,8 +5,6 @@ import java.util.List;
 
 
 public class Puzzle {
-    
-    private char[] layout;
 
     /**
      * Goal state
@@ -18,11 +16,23 @@ public class Puzzle {
      */
     public static final char BLANK = '*';
 
+    /**
+     * Initial state of the puzzle
+     */
+    private char[] layout;
+
     public Puzzle(char[] layout) {
         this.layout = layout;
     }
 
-    // NOTE: can be static
+    public char[] getLayout() {
+        return this.layout;
+    }
+
+    /**
+     * Return possible actions for a given state
+     * @param state
+     */
     public Action[] getActions(char[] state) {
         List<Action> actions = new ArrayList<Action>(Action.ALL);
         int boardSize = (int) Math.sqrt(state.length);
@@ -42,7 +52,12 @@ public class Puzzle {
         return actions.toArray(new Action[0]);
     }
 
- // NOTE: can be static
+    /**
+     * Transition model - Result(s, a) -> s'
+     * @param state
+     * @param action
+     * @retun New state as a result of the action
+     */
     public char[] getResult(char[] state, Action action) {
         for (int i=0; i<state.length; i++) {
             if (state[i] == Puzzle.BLANK) {
@@ -65,10 +80,11 @@ public class Puzzle {
         return state;
     }
 
-    public char[] getLayout() {
-        return this.layout;
-    }
-
+    /**
+     * Goal test - check if the given state is a goal
+     * @param state
+     * @return True or False
+     */
     public boolean goalTest(char[] state) {
         for (int i=0; i<GOAL_STATE.length; i++) {
             if (GOAL_STATE[i] != state[i]) {
