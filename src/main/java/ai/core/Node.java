@@ -53,4 +53,15 @@ public class Node {
         }
         return result;
     }
+
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//
+//        sb.append("state: { ");
+//        for(char c : state) {
+//            sb.append(c).append(" ");
+//        }
+//        return sb.append("}").toString();
+//    }
 }

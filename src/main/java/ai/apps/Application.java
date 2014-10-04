@@ -1,9 +1,11 @@
 package ai.apps;
 
 import ai.core.Puzzle;
+import ai.core.heuristic.Heuristic;
 import ai.core.heuristic.ManhattanDistance;
 import ai.core.search.AStarSearch;
 import ai.core.search.HillClimbingSearch;
+import ai.core.search.SearchAlgorithm;
 import ai.core.search.SearchResult;
 import ai.util.PuzzleFactory;
 
@@ -18,15 +20,22 @@ public class Application {
      * The puzzle list
      */
     private Puzzle[] puzzles = new Puzzle[totalPuzzles];
+    // Puzzle puzzle = new Puzzle(new char[] {'8','6','4','5','7','*','3','2','1'});
+
     
-    private SearchResult[] aStarSearchResults = new SearchResult[totalPuzzles];
-    private SearchResult[] hillClimbingSearchResults = new SearchResult[totalPuzzles];
+    private SearchResult[] aStarResults = new SearchResult[totalPuzzles];
+    private SearchResult[] hillClimbingResults = new SearchResult[totalPuzzles];
+
+    private Heuristic manhattan;
+
+    public Application() {
+        manhattan = new ManhattanDistance(Puzzle.GOAL_STATE);
+    }
 
     public void start() {
         createPuzzles();
-//        performAStarSearch();
+        performAStarSearch();
         performHillClimbingSearch();
-//        Puzzle puzzle = new Puzzle(new char[] {'8','6','4','5','7','*','3','2','1'});
     }
 
     public static void main(String[] args) {
@@ -38,22 +47,23 @@ public class Application {
      *     - h(n) - Manhattan distance
      */
     private void performAStarSearch() {
-        AStarSearch search = new AStarSearch(new ManhattanDistance(Puzzle.GOAL_STATE));
+        SearchAlgorithm search = new AStarSearch(manhattan);
+
         for (int i=0; i<puzzles.length; i++) {
-            aStarSearchResults[i] = search.solve(puzzles[i]);
-            System.out.println("A* (Manhattan) = " + aStarSearchResults[i] + "\n");
+            aStarResults[i] = search.solve(puzzles[i]);
+            System.out.println("A* (Manhattan) = " + aStarResults[i] + "\n");
         }
     }
 
     /**
      * Hill-climbing search
-     *     - h(n) - Manhattan distance
      */
     private void performHillClimbingSearch() {
-        HillClimbingSearch search = new HillClimbingSearch(new ManhattanDistance(Puzzle.GOAL_STATE));
+        SearchAlgorithm search = new HillClimbingSearch(manhattan);
+
         for (int i=0; i<puzzles.length; i++) {
-            hillClimbingSearchResults[i] = search.solve(puzzles[i]);
-            System.out.println("Hill-climbing (Manhattan) = " + hillClimbingSearchResults[i] + "\n");
+            hillClimbingResults[i] = search.solve(puzzles[i]);
+            System.out.println("Hill-climbing = " + hillClimbingResults[i] + "\n");
         }
     }
 

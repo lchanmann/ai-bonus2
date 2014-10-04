@@ -8,7 +8,7 @@ import ai.core.Node;
 import ai.core.Puzzle;
 import ai.core.heuristic.Heuristic;
 
-public class HillClimbingSearch {
+public class HillClimbingSearch implements SearchAlgorithm {
 
     private Heuristic heuristic;
 
