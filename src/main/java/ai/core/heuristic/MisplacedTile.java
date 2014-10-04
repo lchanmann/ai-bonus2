@@ -2,9 +2,9 @@ package ai.core.heuristic;
 
 import ai.core.Puzzle;
 
-public class MisplacedTilts extends Heuristic {
+public class MisplacedTile extends Heuristic {
 
-    public MisplacedTilts(char[] goalState) {
+    public MisplacedTile(char[] goalState) {
         super(goalState);
     }
 
