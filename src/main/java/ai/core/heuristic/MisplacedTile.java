@@ -2,13 +2,14 @@ package ai.core.heuristic;
 
 import ai.core.Puzzle;
 
-public class MisplacedTile extends Heuristic {
+public class MisplacedTile implements Heuristic {
+
+    private char[] goalState;
 
     public MisplacedTile(char[] goalState) {
-        super(goalState);
+        this.goalState = goalState;
     }
 
-    @Override
     public int evaluate(char[] state) {
         int result = 0;
 
