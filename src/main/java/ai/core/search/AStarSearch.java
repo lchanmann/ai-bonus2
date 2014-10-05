@@ -23,7 +23,6 @@ public class AStarSearch implements SearchAlgorithm {
      */
     public SearchResult solve(Puzzle puzzle) {
         Node node = new Node(puzzle.getLayout());
-        // TODO: set a reasonable capacity
         List<Node> frontier = new ArrayList<Node>();
         List<Node> explored = new ArrayList<Node>();
         Long startTime = System.nanoTime();
@@ -62,19 +61,24 @@ public class AStarSearch implements SearchAlgorithm {
     }
 
     private Node getBestNode(List<Node> frontier) {
-        int bestIndex = 0;
-        int bestCost = Integer.MAX_VALUE;
+        Node bestNode = null;
 
-        for (int i=0; i<frontier.size(); i++) {
-            Node node = frontier.get(i);
-            int costEstimate = node.getPathCost() + heuristic.evaluate(node.getState());
-
-            if (bestCost > costEstimate) {
-                bestIndex = i;
-                bestCost = costEstimate;
+        for (Node node : frontier) {
+            if (bestNode == null) bestNode = node;
+            else if (getCost(node) < getCost(bestNode)) {
+                bestNode = node;
             }
         }
-        return frontier.get(bestIndex);
+        return bestNode;
+    }
+
+    /**
+     * Total estimated cost -> f = g + h
+     * @param node
+     * @return
+     */
+    private int getCost(Node node) {
+        return node.getPathCost() + heuristic.evaluate(node.getState());
     }
 
     private Node createNode(Puzzle puzzle, Node node, Action action) {

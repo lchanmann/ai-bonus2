@@ -10,7 +10,7 @@ import ai.core.search.SearchResult;
 import ai.util.PuzzleFactory;
 
 public class Application {
-    
+
     /**
      * The total number of puzzles
      */
@@ -21,7 +21,6 @@ public class Application {
      */
     private Puzzle[] puzzles = new Puzzle[totalPuzzles];
     // Puzzle puzzle = new Puzzle(new char[] {'8','6','4','5','7','*','3','2','1'});
-
     
     private SearchResult[] aStarResults = new SearchResult[totalPuzzles];
     private SearchResult[] hillClimbingResults = new SearchResult[totalPuzzles];
