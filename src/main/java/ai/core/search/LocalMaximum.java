@@ -1,13 +1,12 @@
 package ai.core.search;
 
 import ai.core.Node;
-import ai.core.Puzzle;
 
-public class LocalMaxima extends SearchResult {
+public class LocalMaximum extends SearchResult {
 
     private Node node;
 
-    public LocalMaxima(Node node, int expanded, long executionTime) {
+    public LocalMaximum(Node node, int expanded, long executionTime) {
         this.node = node;
         this.cost = node.getPathCost();
         this.expanded = expanded;

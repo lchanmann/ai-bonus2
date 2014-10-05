@@ -36,7 +36,7 @@ public class HillClimbingSearch implements SearchAlgorithm {
             expanded++;
             neighbor = getBestNode(children);
             if (getValue(neighbor) <= getValue(current))
-                return new LocalMaxima(current, expanded, System.nanoTime() - startTime);
+                return new LocalMaximum(current, expanded, System.nanoTime() - startTime);
             current = neighbor;
         }
     }
