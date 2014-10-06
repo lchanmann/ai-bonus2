@@ -33,7 +33,7 @@ public class Puzzle {
      * Return possible actions for a given state
      * @param state
      */
-    public Action[] getActions(char[] state) {
+    public static Action[] getActions(char[] state) {
         List<Action> actions = new ArrayList<Action>(Action.ALL);
         int boardSize = (int) Math.sqrt(state.length);
 
@@ -58,7 +58,7 @@ public class Puzzle {
      * @param action
      * @retun New state as a result of the action
      */
-    public char[] getResult(char[] state, Action action) {
+    public static char[] getResult(char[] state, Action action) {
         for (int i=0; i<state.length; i++) {
             if (state[i] == Puzzle.BLANK) {
                 char[] result = new char[state.length];

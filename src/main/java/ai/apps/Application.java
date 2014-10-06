@@ -19,7 +19,7 @@ public class Application {
     private static final int totalPuzzles = 50;
 
     /**
-     * The puzzle list
+//     * The puzzle list
      */
     private Puzzle[] puzzles = new Puzzle[totalPuzzles];
 //    private Puzzle puzzle = new Puzzle(new char[] {'7','*','8','5','4','1','6','3','2'});
@@ -64,7 +64,7 @@ public class Application {
      * Hill-climbing search
      */
     private void performHillClimbingSearch() {
-        SearchAlgorithm search = new HillClimbingSearch(euclidean);
+        SearchAlgorithm search = new HillClimbingSearch(manhattan);
 
         for (int i=0; i<puzzles.length; i++) {
             hillClimbingResults[i] = search.solve(puzzles[i]);
@@ -76,7 +76,7 @@ public class Application {
         PuzzleFactory factory = new PuzzleFactory();
         
         for (int i=0; i<totalPuzzles; i++) {
-            puzzles[i] = factory.create();
+            puzzles[i] = factory.create(i);
         }
     }
 }
