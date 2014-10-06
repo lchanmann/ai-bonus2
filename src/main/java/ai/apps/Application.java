@@ -40,13 +40,10 @@ public class Application {
     }
 
     public void start() {
-//        createPuzzles();
-        //performAStarSearch();
-//        performHillClimbingSearch();
-//        performSimulatedAnnealingSearch();
-        Puzzle puzzle = new Puzzle(new char[] {'*', '1', '3', '4', '2', '5', '7', '8', '6'});
-        SearchAlgorithm search = new SimulatedAnnealingSearch(manhattan);
-        search.solve(puzzle);
+        createPuzzles();
+        performAStarSearch();
+        performHillClimbingSearch();
+        performSimulatedAnnealingSearch();
     }
 
     public static void main(String[] args) {

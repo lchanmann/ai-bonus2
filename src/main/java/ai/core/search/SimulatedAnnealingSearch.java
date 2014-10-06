@@ -11,7 +11,6 @@ import ai.core.heuristic.Heuristic;
 
 public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	 private Heuristic heuristic;
-	 private double Temperature = 1000;
 
 	    public SimulatedAnnealingSearch(Heuristic heuristic) {
 	        this.heuristic = heuristic;
@@ -28,11 +27,13 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	        int expanded = 0;
 	        int deltaE;
 	        double chance;
+	        double temperature = 1000;
+
 	        Long startTime = System.nanoTime();
 	        Random choice = new Random(System.nanoTime());
 	        Random probability = new Random(System.nanoTime());
 	        solving(puzzle);
-	        while (Temperature > 1) {
+	        while (temperature > 1) {
 	            if (puzzle.goalTest(current.getState()))
 	                return new Solution(current.getPathCost(), expanded, System.nanoTime() - startTime);
 
@@ -41,7 +42,7 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	            neighbor = children.get(choice.nextInt(children.size()));
 	            if (getValue(neighbor) <= getValue(current)) {
 	                deltaE = getValue(neighbor) - getValue(current);
-	            	double prob = Math.pow(Math.E, (deltaE/Temperature));
+	            	double prob = Math.pow(Math.E, (deltaE/temperature));
 	            	chance = probability.nextDouble();
 	            	if(chance < prob){
 	            		current = neighbor;
@@ -49,7 +50,7 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	            } else {
 	            	current = neighbor;
 	            }
-	            Temperature *= 0.9;
+	            temperature *= 0.9;
 	        }
 	        return new Solution(current.getPathCost(), expanded, System.nanoTime() - startTime);
 	    }
