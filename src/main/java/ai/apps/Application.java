@@ -7,6 +7,7 @@ import ai.core.heuristic.ManhattanDistance;
 import ai.core.heuristic.EuclideanDistance;
 import ai.core.search.AStarSearch;
 import ai.core.search.HillClimbingSearch;
+import ai.core.search.SimulatedAnnealingSearch;
 import ai.core.search.SearchAlgorithm;
 import ai.core.search.SearchResult;
 import ai.util.PuzzleFactory;
@@ -26,6 +27,7 @@ public class Application {
     
     private SearchResult[] aStarResults = new SearchResult[totalPuzzles];
     private SearchResult[] hillClimbingResults = new SearchResult[totalPuzzles];
+    private SearchResult[] simulatedAnnealingResults = new SearchResult[totalPuzzles];
 
     private Heuristic manhattan;
     private Heuristic euclidean;
@@ -38,9 +40,13 @@ public class Application {
     }
 
     public void start() {
-        createPuzzles();
-        performAStarSearch();
-        performHillClimbingSearch();
+//        createPuzzles();
+        //performAStarSearch();
+//        performHillClimbingSearch();
+//        performSimulatedAnnealingSearch();
+        Puzzle puzzle = new Puzzle(new char[] {'*', '1', '3', '4', '2', '5', '7', '8', '6'});
+        SearchAlgorithm search = new SimulatedAnnealingSearch(manhattan);
+        search.solve(puzzle);
     }
 
     public static void main(String[] args) {
@@ -70,6 +76,15 @@ public class Application {
             hillClimbingResults[i] = search.solve(puzzles[i]);
             System.out.println("Hill-climbing = " + hillClimbingResults[i] + "\n");
         }
+    }
+    
+    private void performSimulatedAnnealingSearch() {
+    	SearchAlgorithm search = new SimulatedAnnealingSearch(manhattan);
+    	
+    	for (int i=0; i<puzzles.length; i++) {
+    		simulatedAnnealingResults[i] = search.solve(puzzles[i]);
+    		System.out.println("Simulated Annealing = " + simulatedAnnealingResults[i] + "\n");
+    	}
     }
 
     private void createPuzzles() {
