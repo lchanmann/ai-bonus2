@@ -35,7 +35,7 @@ public class AStarSearch implements SearchAlgorithm {
                 return new Solution(node.getPathCost(), explored.size(), System.nanoTime() - startTime);
 
             node = getBestNode(frontier);
-            for (Action action : puzzle.getActions(node.getState())) {
+            for (Action action : Puzzle.getActions(node.getState())) {
                 Node childNode = createNode(puzzle, node, action);
                 boolean isInFrontier = frontier.indexOf(childNode) != -1;
                 boolean isInExplored = explored.indexOf(childNode) != -1;
@@ -82,7 +82,7 @@ public class AStarSearch implements SearchAlgorithm {
     }
 
     private Node createNode(Puzzle puzzle, Node node, Action action) {
-        char[] state = puzzle.getResult(node.getState(), action);
+        char[] state = Puzzle.getResult(node.getState(), action);
         return new Node(state, node);
     }
 }

@@ -76,8 +76,8 @@ public class HillClimbingSearch implements SearchAlgorithm {
         List<Node> nodes = new ArrayList<Node>();
         char[] state = node.getState();
 
-        for (Action action : puzzle.getActions(state)) {
-            char[] newState = puzzle.getResult(state, action);
+        for (Action action : Puzzle.getActions(state)) {
+            char[] newState = Puzzle.getResult(state, action);
 
             nodes.add(new Node(newState, node));
         }
