@@ -1,5 +1,7 @@
 package ai.core.heuristic;
 
+import ai.core.Node;
+
 public interface Heuristic {
 
     /**
@@ -7,5 +9,5 @@ public interface Heuristic {
      * @param state
      * @return result
      */
-    public int evaluate(char[] state);
+    public int evaluate(Node node);
 }

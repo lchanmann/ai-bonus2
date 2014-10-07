@@ -23,7 +23,7 @@ public class Application {
 //     * The puzzle list
      */
     private Puzzle[] puzzles = new Puzzle[totalPuzzles];
-//    private Puzzle puzzle = new Puzzle(new char[] {'7','*','8','5','4','1','6','3','2'});
+//    private Puzzle puzzle = new Puzzle(new char[] {'1','2','3','4','5','6','8','7','*'});
     
     private SearchResult[] aStarResults = new SearchResult[totalPuzzles];
     private SearchResult[] hillClimbingResults = new SearchResult[totalPuzzles];

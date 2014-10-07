@@ -56,7 +56,7 @@ public class AStarSearch implements SearchAlgorithm {
           .append("\n")
           .append(puzzle.toString())
           .append("h = ")
-          .append(heuristic.evaluate(puzzle.getLayout()));
+          .append(heuristic.evaluate(new Node(puzzle.getLayout())));
         System.out.println(sb.toString());
     }
 
@@ -78,7 +78,7 @@ public class AStarSearch implements SearchAlgorithm {
      * @return
      */
     private int getCost(Node node) {
-        return node.getPathCost() + heuristic.evaluate(node.getState());
+        return node.getPathCost() + heuristic.evaluate(node);
     }
 
     private Node createNode(Puzzle puzzle, Node node, Action action) {

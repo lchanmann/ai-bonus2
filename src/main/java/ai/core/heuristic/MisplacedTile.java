@@ -1,5 +1,6 @@
 package ai.core.heuristic;
 
+import ai.core.Node;
 import ai.core.Puzzle;
 
 public class MisplacedTile implements Heuristic {
@@ -10,8 +11,9 @@ public class MisplacedTile implements Heuristic {
         this.goalState = goalState;
     }
 
-    public int evaluate(char[] state) {
+    public int evaluate(Node node) {
         int result = 0;
+        char[] state = node.getState();
 
         for (int i=0; i<state.length; i++) {
             if (state[i] != Puzzle.BLANK

@@ -48,7 +48,7 @@ public class HillClimbingSearch implements SearchAlgorithm {
           .append("\n")
           .append(puzzle.toString())
           .append("h = ")
-          .append(heuristic.evaluate(puzzle.getLayout()));
+          .append(heuristic.evaluate(new Node(puzzle.getLayout())));
         System.out.println(sb.toString());
     }
 
@@ -65,7 +65,7 @@ public class HillClimbingSearch implements SearchAlgorithm {
     }
 
     private int getValue(Node node) {
-        int estimate = heuristic.evaluate(node.getState());
+        int estimate = heuristic.evaluate(node);
 
         // The bigger the estimate to goal the smaller the value should be given
         // The goal node has the highest value = 0

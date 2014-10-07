@@ -1,5 +1,7 @@
 package ai.core.heuristic;
 
+import ai.core.Node;
+
 public class CombinedHeuristic implements Heuristic {
 
     private char[] goalState;
@@ -9,9 +11,9 @@ public class CombinedHeuristic implements Heuristic {
     }
 
     @Override
-    public int evaluate(char[] state) {
-        int manhantten = new ManhattanDistance(goalState).evaluate(state);
-        int euclidean = new EuclideanDistance(goalState).evaluate(state);
+    public int evaluate(Node node) {
+        int manhantten = new ManhattanDistance(goalState).evaluate(node);
+        int euclidean = new EuclideanDistance(goalState).evaluate(node);
 
         return Math.max(manhantten, euclidean);
     }

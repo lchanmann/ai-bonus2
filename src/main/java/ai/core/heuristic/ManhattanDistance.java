@@ -1,5 +1,6 @@
 package ai.core.heuristic;
 
+import ai.core.Node;
 import ai.core.Puzzle;
 
 public class ManhattanDistance implements Heuristic {
@@ -10,9 +11,10 @@ public class ManhattanDistance implements Heuristic {
         this.goalState = goalState;
     }
 
-    public int evaluate(char[] state) {
+    public int evaluate(Node node) {
         int totalDistance = 0;
         int boardSize = (int) Math.sqrt(goalState.length);
+        char[] state = node.getState();
 
         for (int i=0; i<state.length; i++) {
             if (state[i] != Puzzle.BLANK) {
