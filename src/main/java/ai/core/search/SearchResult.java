@@ -13,4 +13,8 @@ public abstract class SearchResult {
     public double getExecutionTimeInSecond() {
         return executionTime / Math.pow(10, 6);
     }
+    
+    public int getExpanded(){
+    	return expanded;
+    }
 }
