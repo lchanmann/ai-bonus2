@@ -75,9 +75,10 @@ public class Application {
         try{
         	BufferedWriter bw1 = new BufferedWriter(new FileWriter("results.txt"));
         	bw1.write("Instance - AStarCost - AStarExecTime - AStarNodesExpanded - HillClimbCost - HillClimbExecTime - HillClimbNodesExpanded - SimAnnealingCost - SimAnnealingExecTime - SimAnnealingNodesExpanded");
+        	bw1.newLine();
         	for(int i = 0; i < resultData.size(); i++){
         		ResultData temp = resultData.get(i);
-        		bw1.write(i + " - " + temp.getAStarCost() + " - " + temp.getAStarExecTime() + " - " + temp.getAStarExpanded() + " - " + temp.getHillClimbCost() + " - " + temp.getHillClimbExecTime() + " - " + temp.getHillClimbExpanded() + " - " + temp.getSimulatedAnnealingCost() + " - " + temp.getSimulatedAnnealingExecTime() + " - " + temp.getSimulatedAnnealingExpanded());
+        		bw1.write((i+1) + " - " + temp.getAStarCost() + " - " + temp.getAStarExecTime() + " - " + temp.getAStarExpanded() + " - " + temp.getHillClimbCost() + " - " + temp.getHillClimbExecTime() + " - " + temp.getHillClimbExpanded() + " - " + temp.getSimulatedAnnealingCost() + " - " + temp.getSimulatedAnnealingExecTime() + " - " + temp.getSimulatedAnnealingExpanded());
         		bw1.newLine();
         	}
         	bw1.close();
