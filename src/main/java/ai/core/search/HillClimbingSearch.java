@@ -2,6 +2,7 @@ package ai.core.search;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.AbstractMap.SimpleEntry;
 
 import ai.core.Action;
 import ai.core.Node;
@@ -21,22 +22,18 @@ public class HillClimbingSearch implements SearchAlgorithm {
      * @param puzzle
      * @return Solution cost for the puzzle
      */
-    public SearchResult solve(Puzzle puzzle) {
+    public SimpleEntry<Node, Integer> solve(Puzzle puzzle) {
         Node current = new Node(puzzle.getLayout());
         Node neighbor = null;
         int expanded = 0;
-        Long startTime = System.nanoTime();
 
         solving(puzzle);
         while (true) {
-            if (puzzle.goalTest(current.getState()))
-                return new Solution(current.getPathCost(), expanded, System.nanoTime() - startTime);
-
             List<Node> children = expandNode(current, puzzle);
             expanded++;
             neighbor = getBestNode(children);
             if (getValue(neighbor) <= getValue(current))
-                return new LocalMaximum(current, expanded, System.nanoTime() - startTime);
+                return new SimpleEntry<>(current, expanded);
             current = neighbor;
         }
     }
@@ -76,10 +73,10 @@ public class HillClimbingSearch implements SearchAlgorithm {
         List<Node> nodes = new ArrayList<Node>();
         char[] state = node.getState();
 
-        for (Action action : Puzzle.getActions(state)) {
-            char[] newState = Puzzle.getResult(state, action);
+        for (Action action : puzzle.getActions(state)) {
+            char[] newState = puzzle.getResult(state, action);
 
-            nodes.add(new Node(newState, node));
+            nodes.add(new Node(newState, node, action));
         }
         return nodes;
     }

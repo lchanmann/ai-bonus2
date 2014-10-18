@@ -1,5 +1,6 @@
 package ai.core.search;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +22,7 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	     * @param puzzle
 	     * @return Solution cost for the puzzle
 	     */
-	    public SearchResult solve(Puzzle puzzle) {
+	    public SimpleEntry<Node, Integer> solve(Puzzle puzzle) {
 	        Node current = new Node(puzzle.getLayout());
 	        Node neighbor = null;
 	        int expanded = 0;
@@ -29,14 +30,10 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	        double chance;
 	        double temperature = 1000;
 
-	        Long startTime = System.nanoTime();
 	        Random choice = new Random(System.nanoTime());
 	        Random probability = new Random(System.nanoTime());
 	        solving(puzzle);
 	        while (temperature > 1) {
-	            if (puzzle.goalTest(current.getState()))
-	                return new Solution(current.getPathCost(), expanded, System.nanoTime() - startTime);
-
 	            List<Node> children = expandNode(current, puzzle);
 	            expanded++;
 	            neighbor = children.get(choice.nextInt(children.size()));
@@ -52,7 +49,7 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	            }
 	            temperature *= 0.9;
 	        }
-	        return new Solution(current.getPathCost(), expanded, System.nanoTime() - startTime);
+	        return new SimpleEntry<>(current, expanded);
 	    }
 
 	    private void solving(Puzzle puzzle) {
@@ -79,10 +76,10 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	        List<Node> nodes = new ArrayList<Node>();
 	        char[] state = node.getState();
 
-	        for (Action action : Puzzle.getActions(state)) {
-	            char[] newState = Puzzle.getResult(state, action);
+	        for (Action action : puzzle.getActions(state)) {
+	            char[] newState = puzzle.getResult(state, action);
 
-	            nodes.add(new Node(newState, node));
+	            nodes.add(new Node(newState, node, action));
 	        }
 	        return nodes;
 	    }

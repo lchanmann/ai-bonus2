@@ -1,5 +1,6 @@
 package ai.core.search;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,22 +22,21 @@ public class AStarSearch implements SearchAlgorithm {
      * @param puzzle
      * @return Solution cost for the puzzle
      */
-    public SearchResult solve(Puzzle puzzle) {
-        Node node = new Node(puzzle.getLayout());
+    public SimpleEntry<Node, Integer> solve(Puzzle puzzle) {
+        Node currentNode = new Node(puzzle.getLayout());
         List<Node> frontier = new ArrayList<Node>();
         List<Node> explored = new ArrayList<Node>();
-        Long startTime = System.nanoTime();
 
         solving(puzzle);
-        frontier.add(node);
+        frontier.add(currentNode);
         for (int i=0; i<Short.MAX_VALUE; i++) {
-            if (frontier.isEmpty()) return new Failure("No solution found");
-            if (puzzle.goalTest(node.getState()))
-                return new Solution(node.getPathCost(), explored.size(), System.nanoTime() - startTime);
+            if (frontier.isEmpty()) return new SimpleEntry<>(currentNode, explored.size());
+            if (puzzle.goalTest(currentNode.getState()))
+                return new SimpleEntry<>(currentNode, explored.size());
 
-            node = getBestNode(frontier);
-            for (Action action : Puzzle.getActions(node.getState())) {
-                Node childNode = createNode(puzzle, node, action);
+            currentNode = getBestNode(frontier);
+            for (Action action : puzzle.getActions(currentNode.getState())) {
+                Node childNode = createNode(puzzle, currentNode, action);
                 boolean isInFrontier = frontier.indexOf(childNode) != -1;
                 boolean isInExplored = explored.indexOf(childNode) != -1;
 
@@ -44,9 +44,9 @@ public class AStarSearch implements SearchAlgorithm {
                     frontier.add(childNode);
                 }
             }
-            explored.add(frontier.remove(frontier.indexOf(node)));
+            explored.add(frontier.remove(frontier.indexOf(currentNode)));
         }
-        return new Failure("Too many state spaces");
+        return new SimpleEntry<>(currentNode, explored.size());
     }
 
     private void solving(Puzzle puzzle) {
@@ -81,8 +81,8 @@ public class AStarSearch implements SearchAlgorithm {
         return node.getPathCost() + heuristic.evaluate(node);
     }
 
-    private Node createNode(Puzzle puzzle, Node node, Action action) {
-        char[] state = Puzzle.getResult(node.getState(), action);
-        return new Node(state, node);
+    private Node createNode(Puzzle puzzle, Node parent, Action action) {
+        char[] state = puzzle.getResult(parent.getState(), action);
+        return new Node(state, parent, action);
     }
 }

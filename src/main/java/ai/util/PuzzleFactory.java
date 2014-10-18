@@ -6,6 +6,8 @@ import ai.core.Action;
 import ai.core.Puzzle;
 
 public class PuzzleFactory {
+    
+    private static final PuzzleHelper puzzleHelper = PuzzleHelper.getInstance();
 
     public Puzzle create(int difficulty) {
         char[] layout = { '1', '2', '3', '4', '5', '6', '7', '8', '*'};
@@ -19,9 +21,9 @@ public class PuzzleFactory {
         int suffle  = difficulty + 30;
 
         for (; suffle > 0; suffle--) {
-            actions = Puzzle.getActions(layout);
+            actions = puzzleHelper.getActions(layout);
             int index = rand.nextInt(actions.length);
-            layout = Puzzle.getResult(layout, actions[index]);
+            layout = puzzleHelper.getResult(layout, actions[index]);
         }
         return layout;
     }

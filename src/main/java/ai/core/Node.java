@@ -4,16 +4,17 @@ public class Node {
     
     private char[] state;
     private Node parent;
-//    private Action action;
+    private Action action;
     private int pathCost;
     
     public Node(char[] state) {
-        this(state, null);
+        this(state, null, null);
     }
     
-    public Node(char[] state, Node parent) {
+    public Node(char[] state, Node parent, Action action) {
         this.state = state;
         this.parent = parent;
+        this.action = action;
         this.pathCost = parent == null ? 0 : parent.pathCost + 1;
     }
 
@@ -27,6 +28,10 @@ public class Node {
     
     public int getPathCost() {
         return pathCost;
+    }
+    
+    public Action getAction() {
+        return action;
     }
 
     @Override

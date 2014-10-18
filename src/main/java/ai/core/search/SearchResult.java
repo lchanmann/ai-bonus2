@@ -1,6 +1,6 @@
 package ai.core.search;
 
-public abstract class SearchResult {
+public abstract class SearchResult implements ISearchResult {
 
     protected int cost;
     protected int expanded;
