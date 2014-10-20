@@ -22,13 +22,14 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	     * @param puzzle
 	     * @return Solution cost for the puzzle
 	     */
-	    public SimpleEntry<Node, Integer> solve(Puzzle puzzle) {
+	    public ISearchResult solve(Puzzle puzzle) {
 	        Node current = new Node(puzzle.getLayout());
 	        Node neighbor = null;
 	        int expanded = 0;
 	        int deltaE;
 	        double chance;
 	        double temperature = 1000;
+	        long startedAt = System.nanoTime();
 
 	        Random choice = new Random(System.nanoTime());
 	        Random probability = new Random(System.nanoTime());
@@ -49,7 +50,7 @@ public class SimulatedAnnealingSearch implements SearchAlgorithm {
 	            }
 	            temperature *= 0.9;
 	        }
-	        return new SimpleEntry<>(current, expanded);
+	        return new Solution(current, expanded, System.nanoTime() - startedAt);
 	    }
 
 	    private void solving(Puzzle puzzle) {

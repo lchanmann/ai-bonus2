@@ -22,10 +22,11 @@ public class HillClimbingSearch implements SearchAlgorithm {
      * @param puzzle
      * @return Solution cost for the puzzle
      */
-    public SimpleEntry<Node, Integer> solve(Puzzle puzzle) {
+    public ISearchResult solve(Puzzle puzzle) {
         Node current = new Node(puzzle.getLayout());
         Node neighbor = null;
         int expanded = 0;
+        long startedAt = System.nanoTime();
 
         solving(puzzle);
         while (true) {
@@ -33,7 +34,7 @@ public class HillClimbingSearch implements SearchAlgorithm {
             expanded++;
             neighbor = getBestNode(children);
             if (getValue(neighbor) <= getValue(current))
-                return new SimpleEntry<>(current, expanded);
+                return new Solution(current, expanded, System.nanoTime() - startedAt);
             current = neighbor;
         }
     }

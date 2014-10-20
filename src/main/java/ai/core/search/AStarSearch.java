@@ -22,17 +22,18 @@ public class AStarSearch implements SearchAlgorithm {
      * @param puzzle
      * @return Solution cost for the puzzle
      */
-    public SimpleEntry<Node, Integer> solve(Puzzle puzzle) {
+    public ISearchResult solve(Puzzle puzzle) {
         Node currentNode = new Node(puzzle.getLayout());
         List<Node> frontier = new ArrayList<Node>();
         List<Node> explored = new ArrayList<Node>();
+        Long startedAt = System.nanoTime();
 
         solving(puzzle);
         frontier.add(currentNode);
         for (int i=0; i<Short.MAX_VALUE; i++) {
-            if (frontier.isEmpty()) return new SimpleEntry<>(currentNode, explored.size());
+            if (frontier.isEmpty()) return new Solution(currentNode, explored.size(), System.nanoTime() - startedAt);;
             if (puzzle.goalTest(currentNode.getState()))
-                return new SimpleEntry<>(currentNode, explored.size());
+                return new Solution(currentNode, explored.size(), System.nanoTime() - startedAt);
 
             currentNode = getBestNode(frontier);
             for (Action action : puzzle.getActions(currentNode.getState())) {
@@ -46,7 +47,7 @@ public class AStarSearch implements SearchAlgorithm {
             }
             explored.add(frontier.remove(frontier.indexOf(currentNode)));
         }
-        return new SimpleEntry<>(currentNode, explored.size());
+        return new Solution(currentNode, explored.size(), System.nanoTime() - startedAt);
     }
 
     private void solving(Puzzle puzzle) {
